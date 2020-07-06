@@ -49,6 +49,12 @@ Before you run this you will need to:
 
 7.Run terraform init
 
+8.Run ./mesh_deploy.sh
+
+9.Run ./app_migrate.sh
+
+10.Run ./cleanup.sh
+
 
 ## Inputs
 ### AKS
@@ -109,6 +115,8 @@ Run the below script to deploy the stack decribe beow in GKE and a full consul m
 
 
 ### What you get!
+A connect cloud that has a primary deploymnet in GCP if you then want to migrate your app to AWS and Azure runn script 2.app_migrate. This keep the DB in GCP but deploys vault and the app in the other clouds and allows you to write to the DB but only read the data you commited from that cloud app.
+
 ### Consul
 
 You can connect to the consul UI and see the services registerd using http://<EXTERNAL-IP>
