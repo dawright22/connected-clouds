@@ -115,7 +115,7 @@ Run the below script to deploy the stack decribe beow in GKE and a full consul m
 
 
 ### What you get!
-A connect cloud that has a primary deploymnet in GCP if you then want to migrate your app to AWS and Azure runn script 2.app_migrate. This keep the DB in GCP but deploys vault and the app in the other clouds and allows you to write to the DB but only read the data you commited from that cloud app.
+A connect cloud that has a primary deploymnet in GCP if you then want to migrate your app to AWS and Azure run script 2.app_migrate. This keep the DB in GCP but deploys vault and the app in the other clouds and allows you to write to the DB but only read the data you commited from that cloud app.
 
 ### Consul
 
