@@ -3,19 +3,13 @@
 
 helm repo add hashicorp https://helm.releases.hashicorp.com
 
-kubectl config view -o json | jq -r '.contexts[].name'  >> KCONFIG_AKS.txt
-
-kubectl config use-context $(grep 'aks$'  KCONFIG_AKS.txt)
-
-rm "KCONFIG_AKS.txt" 
-
 #  cd consul-mesh
 
 # ./consul.sh
 
-kubectl wait --timeout=120s --for=condition=Ready $(kubectl get pod --selector=app=consul -o name)
+# kubectl wait --timeout=120s --for=condition=Ready $(kubectl get pod --selector=app=consul -o name)
 
-sleep 1s
+# sleep 1s
 
 # cd ..
 
@@ -23,8 +17,8 @@ sleep 1s
 # ./mariadb.sh
 # cd ..
 
-kubectl wait --timeout=120s --for=condition=Ready $(kubectl get pod --selector=app=mariadb -o name)
-sleep 1s
+# kubectl wait --timeout=120s --for=condition=Ready $(kubectl get pod --selector=app=mariadb -o name)
+# sleep 1s
 
 cd vault
 ./vault.sh
