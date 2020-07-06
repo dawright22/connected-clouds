@@ -3,6 +3,8 @@ set -v
 
  cd app_stack/app_AKS/
 
+ kubectl config use-context $(grep 'aks$' KCONFIG.txt)
+
  ./full_stack_deploy.sh
 
  sleep 1
@@ -10,6 +12,8 @@ set -v
  cd ../../
 
   sleep1
+  
+ kubectl config use-context $(grep arn KCONFIG.txt)
 
  cd app_stack/app_EKS/
 
