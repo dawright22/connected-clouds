@@ -1,6 +1,5 @@
 #!/bin/bash
 set -v
-kubectl config view -o json | jq -r '.contexts[].name'  >> KCONFIG.txt
 
 kubectl config use-context $(grep gke KCONFIG.txt)
 
@@ -9,7 +8,6 @@ kubectl config use-context $(grep gke KCONFIG.txt)
 
 ./cleanup.sh
 
-  kubectl wait --timeout=120s --for=condition=Ready $(kubectl get pod --selector=app=k8s-tranist-app -o name)
  
  sleep 1s
 
@@ -19,31 +17,31 @@ kubectl config use-context $(grep gke KCONFIG.txt)
 
  sleep 1
 
- cd app_stack/app_AKS/consul-mesh/
+ cd app_stack/app_AKS/
 
 ./cleanup.sh
 
- kubectl wait --timeout=120s --for=condition=Ready $(kubectl get pod --selector=app=consul -o name)
 
  sleep 1
 
- cd ../../../
+ cd ../../
 
   kubectl config use-context $(grep arn KCONFIG.txt)
 
-  sleep1
+  sleep 1
 
  cd app_stack/app_EKS/
 
  ./cleanup.sh
 
- kubectl wait --timeout=120s --for=condition=Ready $(kubectl get pod --selector=app=consul -o name)
 
  sleep 1
 
- echo "mesh destroyed"
+ echo "all destroyed"
 
- cd ../../../
+ cd ../../
+
+rm "KCONFIG.txt" 
 
 find . -type f -name "init.json" -exec rm -i {} \;
 
