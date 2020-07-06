@@ -1,0 +1,42 @@
+global:
+  name: consul
+  image: "consul:1.8.0"
+  datacenter: dc-GCP
+
+  # TLS configures whether Consul components use TLS.
+  tls:
+    # TLS must be enabled for federation in Kubernetes.
+    enabled: true
+    verify: false
+    httpsOnly: false
+
+  federation:
+    enabled: true
+    # This will cause a Kubernetes secret to be created that
+    # can be imported by secondary datacenters to configure them
+    # for federation.
+    createFederationSecret: true
+
+
+  # Gossip encryption secures the protocol Consul uses to quickly
+  # discover new nodes and detect failure.
+  gossipEncryption:
+    secretName: consul-gossip-encryption-key
+    secretKey: key
+
+ui:
+  service:
+    type: LoadBalancer
+
+connectInject:
+  # Consul Connect service mesh must be enabled for federation.
+  enabled: true
+
+dns:
+  enabled: true
+
+meshGateway:
+  # Mesh gateways are gateways between datacenters. They must be enabled
+  # for federation in Kubernetes since the communication between datacenters
+  # goes through the mesh gateways.
+  enabled: true

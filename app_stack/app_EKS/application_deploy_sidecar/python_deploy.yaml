@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-transit-app
+  labels:
+    app: k8s-transit-app
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: k8s-transit-app
+  template:
+    metadata: 
+      name: k8s-transit-app
+      labels:
+        app: k8s-transit-app
+      annotations:
+       "consul.hashicorp.com/connect-inject": "true"
+       "consul.hashicorp.com/connect-service-upstreams": "vault:8200,mariadb:3306:dc-gcp"
+    spec:
+      serviceAccountName: vault-auth
+      automountServiceAccountToken: true
+      containers:
+        - name: k8s-transit-app
+          image: dawright/k8-transit-multi-app:latest
+          ports:
+          - containerPort: 5000
+            protocol: TCP
+          volumeMounts:
+          - name: config
+            mountPath: /usr/src/app/config
+      volumes:
+      - name: config
+        configMap:
+          name: config
+          items:
+          - key: config
+            path: config.ini

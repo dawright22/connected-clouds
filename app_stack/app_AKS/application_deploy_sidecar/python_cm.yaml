@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ConfigMap
+data:
+  config: |
+    #WARNING - this is being overwritten by consul-template. You can find the config at musical-spork/packer/files/config.ini.ctmpl
+    [DEFAULT]
+    LogLevel = DEBUG
+
+    [DATABASE]
+    Address=127.0.0.1
+    Port=3306
+    User=root
+    Password=vaultadminpassword
+    Database=app
+
+    [VAULT]
+    Enabled=True
+    DynamicDBCreds=True
+    DynamicDBCredsPath=lob_a/workshop/database/creds/workshop-app
+    Platform=kubernetes
+    ProtectRecords=True
+    Address=http://127.0.0.1:8200
+    Token=root
+    KeyPath=lob_a/workshop/transit
+    KeyName=customer-key
+
+    [CONSUL]
+    DEBUG=True
+metadata:
+  name: config
+  namespace: default

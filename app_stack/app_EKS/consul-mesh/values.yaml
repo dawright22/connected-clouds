@@ -1,0 +1,59 @@
+global:
+  name: consul
+  image: "consul:1.8.0"
+  datacenter: dc-aws
+  tls:
+   # TLS must be enabled for federation in Kubernetes.
+    enabled: true
+    verify: false
+    httpsOnly: false
+
+    # Here we're using the shared certificate authority from the primary
+    # datacenter that was exported via the federation secret.
+    caCert:
+      secretName: consul-federation
+      secretKey: caCert
+    caKey:
+      secretName: consul-federation
+      secretKey: caKey
+
+  federation:
+    enabled: true
+  gossipEncryption:
+    secretName: consul-federation
+    secretKey: gossipEncryptionKey
+
+ui:
+  service:
+    type: LoadBalancer
+
+connectInject:
+  enabled: true
+
+dns:
+  enabled: true
+
+  # Set a predefined cluster IP for the DNS service.
+  # Useful if you need to reference the DNS service's IP
+  # address in CoreDNS config.
+  clusterIP: 172.20.255.254
+
+  # Extra annotations to attach to the dns service
+  # This should be a multi-line string of
+  # annotations to apply to the dns Service
+  annotations: null
+
+
+meshGateway:
+  enabled: true
+server:
+  # Here we're including the server config exported from the primary
+  # via the federation secret. This config includes the addresses of
+  # the primary datacenter's mesh gateways so Consul can begin federation.
+  extraVolumes:
+    - type: secret
+      name: consul-federation
+      items:
+        - key: serverConfigJSON
+          path: config.json
+      load: true
