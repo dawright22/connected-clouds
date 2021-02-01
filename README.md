@@ -47,13 +47,15 @@ Before you run this you will need to:
 
 6.Clone this repo
 
-7.Run terraform init
+7.The consul client install on the machine deploying the app_stack
 
-8.Run ./mesh_deploy.sh
+8.Run terraform init
 
-9.Run ./app_migrate.sh
+9.Run ./mesh_deploy.sh
 
-10.Run ./cleanup.sh
+10.Run ./app_migrate.sh
+
+11.Run ./cleanup.sh
 
 
 ## Inputs
