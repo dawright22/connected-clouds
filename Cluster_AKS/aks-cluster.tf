@@ -36,6 +36,14 @@ resource "azurerm_kubernetes_cluster" "default" {
   tags = {
     environment = "terraform-multi-cloud-k8-demo"
   }
-}
+   
+    provisioner "local-exec" {
+    # Load credentials to local environment so subsequent kubectl commands can be run
+    command = <<EOS
+      az aks get-credentials  --resource-group ${azurerm_resource_group.default.name} --name ${self.name} --overwrite-existing; 
 
+EOS
+
+  }
+}
 
