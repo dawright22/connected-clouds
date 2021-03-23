@@ -1,5 +1,5 @@
 provider "azurerm" {
-  #version = "~> 1.27.0"
+features {}
 }
 
 resource "azurerm_resource_group" "default" {
@@ -17,11 +17,10 @@ resource "azurerm_kubernetes_cluster" "default" {
   resource_group_name = azurerm_resource_group.default.name
   dns_prefix          = "${var.cluster-name}-k8s"
 
-  agent_pool_profile {
+ default_node_pool {
     name            = "default"
-    count           = 3
+    node_count           = 3
     vm_size         = "Standard_D2_v2"
-    os_type         = "Linux"
     os_disk_size_gb = 30
   }
 
@@ -36,15 +35,6 @@ resource "azurerm_kubernetes_cluster" "default" {
 
   tags = {
     environment = "terraform-multi-cloud-k8-demo"
-  }
-
-  provisioner "local-exec" {
-    # Load credentials to local environment so subsequent kubectl commands can be run
-    command = <<EOS
-      az aks get-credentials  --resource-group ${azurerm_resource_group.default.name} --name ${self.name} --overwrite-existing; 
-
-EOS
-
   }
 }
 
