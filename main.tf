@@ -10,17 +10,17 @@ resource "random_pet" "name" {
 #AWS
 module "Cluster_EKS" {
   source       = "./Cluster_EKS"
-  cluster-name = "${random_pet.name.id}"
+  cluster-name = random_pet.name.id
   
 }
 #MSFT
 module "Cluster_AKS" {
   source       = "./Cluster_AKS"
-  cluster-name = "${random_pet.name.id}"
+  cluster-name = random_pet.name.id
 
 }
 #Google
 module "Cluster_GKE" {
   source       = "./Cluster_GKE"
-  cluster_name = "${random_pet.name.id}"
+  cluster_name = random_pet.name.id
 }
