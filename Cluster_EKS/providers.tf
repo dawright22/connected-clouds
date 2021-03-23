@@ -4,7 +4,7 @@
 
 provider "aws" {
   region  = var.aws_region
-  version = ">= 2.38.0"
+  #version = ">= 2.38.0"
 }
 
 # Using these data sources allows the configuration to be
