@@ -47,7 +47,7 @@ Before you run this you will need to:
 
 6.Clone this repo
 
-7.The consul client install on the machine deploying the app_stack
+7.Install the consul client on the local machine as it used to deploying the app_stack
 
 8.Run terraform init
 
